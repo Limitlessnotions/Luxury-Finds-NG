@@ -1,43 +1,97 @@
-// FULL MULTI-PAGE STRUCTURE (React + Tailwind + Router)
-
+// PIXEL-PERFECT REFINED VERSION - Veekee-inspired Luxury Fashion UI
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
 
 const products = [
-  { id: 1, name: "Bridal Elegance", image: "https://source.unsplash.com/600x800/?bridal" },
-  { id: 2, name: "Groom Classic", image: "https://source.unsplash.com/600x800/?groom" },
-  { id: 3, name: "Reception Look", image: "https://source.unsplash.com/600x800/?wedding,fashion" },
-  { id: 4, name: "Luxury Fit", image: "https://source.unsplash.com/600x800/?african,fashion" }
+  { 
+    id: 1, 
+    name: "Bridal Elegance", 
+    price: "₦1,250,000",
+    image: "https://source.unsplash.com/600x800/?bridal,elegant" 
+  },
+  { 
+    id: 2, 
+    name: "Groom Classic", 
+    price: "₦850,000",
+    image: "https://source.unsplash.com/600x800/?groom,suit" 
+  },
+  { 
+    id: 3, 
+    name: "Reception Look", 
+    price: "₦980,000",
+    image: "https://source.unsplash.com/600x800/?wedding,reception,fashion" 
+  },
+  { 
+    id: 4, 
+    name: "Luxury Fit", 
+    price: "₦1,450,000",
+    image: "https://source.unsplash.com/600x800/?african,luxury,fashion" 
+  }
 ];
 
 function Navbar() {
   return (
-    <header className="flex justify-between items-center px-10 py-6 border-b">
-      <h1 className="text-2xl tracking-wide">FAJUZY</h1>
-      <nav className="flex gap-8 text-sm uppercase">
-        <Link to="/">Home</Link>
-        <Link to="/shop">Shop</Link>
-        <Link to="/lookbook">Lookbook</Link>
-      </nav>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-8 lg:px-16 py-6">
+        <Link to="/" className="text-2xl tracking-[0.5em] font-light">FAJUZY</Link>
+        
+        <nav className="flex gap-10 text-xs tracking-[0.125em] uppercase font-medium">
+          <Link to="/" className="hover:text-gray-500 transition-colors">Home</Link>
+          <Link to="/shop" className="hover:text-gray-500 transition-colors">Shop</Link>
+          <Link to="/lookbook" className="hover:text-gray-500 transition-colors">Lookbook</Link>
+        </nav>
+
+        <div className="text-xs tracking-widest">LAGOS • ABUJA</div>
+      </div>
     </header>
   );
 }
 
 function Home() {
   return (
-    <div>
-      <section className="w-full h-[90vh]">
-        <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac" className="w-full h-full object-cover" />
+    <div className="pt-24">
+      {/* HERO */}
+      <section className="relative h-screen overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac"
+          alt="Hero"
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+        
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center text-white">
+          <p className="text-sm tracking-[0.25em] mb-3">EST. 2024</p>
+          <h1 className="text-6xl md:text-7xl font-light tracking-widest">TIMELESS ELEGANCE</h1>
+          <p className="mt-4 text-sm tracking-widest">Bespoke Bridal • Luxury Ready-to-Wear</p>
+        </div>
       </section>
 
-      <section className="grid md:grid-cols-2 gap-4 p-6">
-        <div className="relative">
-          <img src="https://source.unsplash.com/800x1000/?bridal" className="h-[500px] w-full object-cover" />
-          <p className="absolute bottom-4 left-4 text-white">Bespoke</p>
+      {/* CATEGORY SPLIT */}
+      <section className="grid md:grid-cols-2 gap-px bg-black">
+        <div className="relative group overflow-hidden">
+          <img 
+            src="https://source.unsplash.com/800x1000/?bridal,couture" 
+            alt="Bespoke" 
+            className="w-full h-[680px] object-cover transition-all duration-700 group-hover:scale-105" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute bottom-12 left-12">
+            <p className="text-white text-sm tracking-[0.2em]">BESPOKE COLLECTION</p>
+            <p className="text-white text-4xl font-light mt-2">Bridal</p>
+          </div>
         </div>
-        <div className="relative">
-          <img src="https://source.unsplash.com/800x1000/?groom" className="h-[500px] w-full object-cover" />
-          <p className="absolute bottom-4 left-4 text-white">Ready to Wear</p>
+
+        <div className="relative group overflow-hidden">
+          <img 
+            src="https://source.unsplash.com/800x1000/?groom,luxury" 
+            alt="Ready to Wear" 
+            className="w-full h-[680px] object-cover transition-all duration-700 group-hover:scale-105" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute bottom-12 left-12">
+            <p className="text-white text-sm tracking-[0.2em]">READY TO WEAR</p>
+            <p className="text-white text-4xl font-light mt-2">Groom &amp; Occasion</p>
+          </div>
         </div>
       </section>
     </div>
@@ -46,13 +100,31 @@ function Home() {
 
 function Shop() {
   return (
-    <div className="p-6">
-      <h2 className="text-center text-xl mb-6">Shop</h2>
-      <div className="grid md:grid-cols-4 gap-6">
-        {products.map((p) => (
-          <Link key={p.id} to={`/product/${p.id}`}>
-            <img src={p.image} className="h-[350px] w-full object-cover" />
-            <p className="text-sm mt-2">{p.name}</p>
+    <div className="pt-24 pb-20 px-8 lg:px-16 max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+        <h2 className="text-sm tracking-[0.25em] text-gray-500">DISCOVER</h2>
+        <p className="text-4xl font-light mt-2 tracking-wide">Signature Collection</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {products.map((product) => (
+          <Link 
+            key={product.id} 
+            to={`/product/${product.id}`}
+            className="group"
+          >
+            <div className="overflow-hidden aspect-[4/5] bg-gray-100">
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" 
+              />
+            </div>
+            
+            <div className="mt-6">
+              <p className="text-sm tracking-wide font-medium">{product.name}</p>
+              <p className="text-xs text-gray-500 mt-1">{product.price}</p>
+            </div>
           </Link>
         ))}
       </div>
@@ -64,18 +136,44 @@ function Product() {
   const { id } = useParams();
   const product = products.find((p) => p.id === Number(id));
 
+  if (!product) return <div>Product not found</div>;
+
   return (
-    <div className="p-10 grid md:grid-cols-2 gap-10">
-      <img src={product.image} className="w-full h-[600px] object-cover" />
-      <div>
-        <h2 className="text-2xl mb-4">{product.name}</h2>
-        <p className="mb-6">Elegant handcrafted design for special occasions.</p>
-        <a
-          href={`https://wa.me/2348100892502?text=I want ${product.name}`}
-          className="border px-6 py-3"
-        >
-          Make Enquiry
-        </a>
+    <div className="pt-24 pb-20 px-8 lg:px-16 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
+        {/* Image */}
+        <div className="overflow-hidden bg-gray-50">
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-auto max-h-[720px] object-cover" 
+          />
+        </div>
+
+        {/* Details */}
+        <div className="flex flex-col justify-center py-8">
+          <div className="uppercase tracking-[0.125em] text-xs text-gray-500 mb-2">FAJUZY • 2026</div>
+          <h1 className="text-4xl font-light tracking-wide">{product.name}</h1>
+          <p className="text-xl text-gray-600 mt-2">{product.price}</p>
+
+          <div className="my-12 border-t border-b border-gray-100 py-8 text-sm leading-relaxed text-gray-600">
+            Handcrafted with the finest fabrics and meticulous attention to detail. 
+            Designed for those who appreciate timeless elegance and modern sophistication.
+          </div>
+
+          <a
+            href={`https://wa.me/2348100892502?text=I%20would%20like%20to%20enquire%20about%20${encodeURIComponent(product.name)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border border-black px-12 py-4 text-sm tracking-widest hover:bg-black hover:text-white transition-all duration-300 active:scale-95"
+          >
+            MAKE AN ENQUIRY
+          </a>
+
+          <p className="text-[10px] text-gray-400 mt-8 tracking-widest">
+            DELIVERY WITHIN LAGOS &amp; ABUJA • WORLDWIDE SHIPPING AVAILABLE
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -83,11 +181,21 @@ function Product() {
 
 function Lookbook() {
   return (
-    <div className="p-6">
-      <h2 className="text-center text-xl mb-6">Lookbook</h2>
-      <div className="grid md:grid-cols-3 gap-4">
-        {[1,2,3,4,5,6].map((i) => (
-          <img key={i} src={`https://source.unsplash.com/600x800/?wedding,${i}`} className="h-[400px] w-full object-cover" />
+    <div className="pt-24 pb-20 px-8 lg:px-16 max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+        <h2 className="text-sm tracking-[0.25em] text-gray-500">LOOKBOOK</h2>
+        <p className="text-4xl font-light mt-3 tracking-wide">Spring / Summer 2026</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div key={i} className="overflow-hidden group">
+            <img
+              src={`https://source.unsplash.com/600x800/?wedding,fashion,luxury,${i}`}
+              alt={`Look ${i}`}
+              className="w-full aspect-[4/5] object-cover transition-all duration-700 group-hover:scale-105"
+            />
+          </div>
         ))}
       </div>
     </div>
@@ -97,7 +205,7 @@ function Lookbook() {
 export default function App() {
   return (
     <Router>
-      <div className="bg-white text-black font-serif">
+      <div className="bg-white text-black font-light">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
