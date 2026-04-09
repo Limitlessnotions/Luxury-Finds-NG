@@ -1,112 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Limitless Store</title>
+// FULL MULTI-PAGE STRUCTURE (React + Tailwind + Router)
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Jost&display=swap" rel="stylesheet">
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
 
-<style>
-body{margin:0;font-family:'Jost',sans-serif;background:#fdfaf8;color:#333}
-.nav{display:flex;justify-content:space-between;padding:20px 40px;border-bottom:1px solid #eee}
-.logo{font-family:'Cormorant Garamond';font-size:22px}
-.nav a{background:#25D366;color:#fff;padding:8px 15px;text-decoration:none}
+const products = [
+  { id: 1, name: "Bridal Elegance", image: "https://source.unsplash.com/600x800/?bridal" },
+  { id: 2, name: "Groom Classic", image: "https://source.unsplash.com/600x800/?groom" },
+  { id: 3, name: "Reception Look", image: "https://source.unsplash.com/600x800/?wedding,fashion" },
+  { id: 4, name: "Luxury Fit", image: "https://source.unsplash.com/600x800/?african,fashion" }
+];
 
-.hero{display:flex;align-items:center;justify-content:space-between;padding:60px 40px}
-.hero-text{max-width:500px}
-.hero h1{font-family:'Cormorant Garamond';font-size:48px}
-.hero p{color:#777}
-.hero a{background:#25D366;color:#fff;padding:12px 25px;text-decoration:none}
+function Navbar() {
+  return (
+    <header className="flex justify-between items-center px-10 py-6 border-b">
+      <h1 className="text-2xl tracking-wide">FAJUZY</h1>
+      <nav className="flex gap-8 text-sm uppercase">
+        <Link to="/">Home</Link>
+        <Link to="/shop">Shop</Link>
+        <Link to="/lookbook">Lookbook</Link>
+      </nav>
+    </header>
+  );
+}
 
-.hero img{width:350px;border-radius:10px}
+function Home() {
+  return (
+    <div>
+      <section className="w-full h-[90vh]">
+        <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac" className="w-full h-full object-cover" />
+      </section>
 
-.trust{text-align:center;padding:30px;background:#f5ede8}
-.products{padding:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+      <section className="grid md:grid-cols-2 gap-4 p-6">
+        <div className="relative">
+          <img src="https://source.unsplash.com/800x1000/?bridal" className="h-[500px] w-full object-cover" />
+          <p className="absolute bottom-4 left-4 text-white">Bespoke</p>
+        </div>
+        <div className="relative">
+          <img src="https://source.unsplash.com/800x1000/?groom" className="h-[500px] w-full object-cover" />
+          <p className="absolute bottom-4 left-4 text-white">Ready to Wear</p>
+        </div>
+      </section>
+    </div>
+  );
+}
 
-.card{background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden}
-.card img{width:100%;height:250px;object-fit:cover}
-.card-body{padding:15px}
-.card h3{font-family:'Cormorant Garamond'}
-.card a{display:block;background:#25D366;color:#fff;text-align:center;padding:10px;margin-top:10px;text-decoration:none}
+function Shop() {
+  return (
+    <div className="p-6">
+      <h2 className="text-center text-xl mb-6">Shop</h2>
+      <div className="grid md:grid-cols-4 gap-6">
+        {products.map((p) => (
+          <Link key={p.id} to={`/product/${p.id}`}>
+            <img src={p.image} className="h-[350px] w-full object-cover" />
+            <p className="text-sm mt-2">{p.name}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-.cta{text-align:center;padding:60px;background:#111;color:#fff}
-.cta a{background:#25D366;color:#fff;padding:12px 25px;text-decoration:none}
-</style>
-</head>
+function Product() {
+  const { id } = useParams();
+  const product = products.find((p) => p.id === Number(id));
 
-<body>
-
-<!-- NAV -->
-<div class="nav">
-  <div class="logo">Limitless Store</div>
-  <a href="https://wa.me/2347072239333?text=Hi, I want to shop from Limitless Store">WhatsApp</a>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-text">
-    <h1>Luxury Wigs That Turn Heads</h1>
-    <p>Premium bone straight, curly, and frontal wigs. Trusted by vendors and customers across Nigeria.</p>
-    <a href="https://wa.me/2347072239333?text=Hi, I want to browse your wig collection">Order on WhatsApp</a>
-  </div>
-  <img src="https://images.unsplash.com/photo-1598514982901-1b4c8f8c2b3d" />
-</div>
-
-<!-- TRUST -->
-<div class="trust">
-  <p>⭐ Trusted by 50+ vendors</p>
-  <p>💬 1000+ happy customers</p>
-  <p>🚚 Nationwide delivery available</p>
-</div>
-
-<!-- PRODUCTS -->
-<div class="products">
-  <div class="grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1618377387086-4c4d9f2e2f3c">
-      <div class="card-body">
-        <h3>Bone Straight Wig</h3>
-        <p>₦120,000</p>
-        <a href="https://wa.me/2347072239333?text=Hi, I want to order Bone Straight Wig. Price: ₦120,000. Length?">
-          Order on WhatsApp
+  return (
+    <div className="p-10 grid md:grid-cols-2 gap-10">
+      <img src={product.image} className="w-full h-[600px] object-cover" />
+      <div>
+        <h2 className="text-2xl mb-4">{product.name}</h2>
+        <p className="mb-6">Elegant handcrafted design for special occasions.</p>
+        <a
+          href={`https://wa.me/2348100892502?text=I want ${product.name}`}
+          className="border px-6 py-3"
+        >
+          Make Enquiry
         </a>
       </div>
     </div>
+  );
+}
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb">
-      <div class="card-body">
-        <h3>Curly Wig</h3>
-        <p>₦95,000</p>
-        <a href="https://wa.me/2347072239333?text=Hi, I want to order Curly Wig. Price: ₦95,000. Length?">
-          Order on WhatsApp
-        </a>
+function Lookbook() {
+  return (
+    <div className="p-6">
+      <h2 className="text-center text-xl mb-6">Lookbook</h2>
+      <div className="grid md:grid-cols-3 gap-4">
+        {[1,2,3,4,5,6].map((i) => (
+          <img key={i} src={`https://source.unsplash.com/600x800/?wedding,${i}`} className="h-[400px] w-full object-cover" />
+        ))}
       </div>
     </div>
+  );
+}
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f">
-      <div class="card-body">
-        <h3>Frontal + Bundle</h3>
-        <p>₦150,000</p>
-        <a href="https://wa.me/2347072239333?text=Hi, I want to order Frontal + Bundle. Price: ₦150,000. Details?">
-          Order on WhatsApp
-        </a>
+export default function App() {
+  return (
+    <Router>
+      <div className="bg-white text-black font-serif">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/lookbook" element={<Lookbook />} />
+        </Routes>
       </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- CTA -->
-<div class="cta">
-  <h2>Ready to Order?</h2>
-  <p>Chat with us instantly on WhatsApp</p>
-  <a href="https://wa.me/2347072239333?text=Hi, I want to place an order">Start Now</a>
-</div>
-
-</body>
-</html>
+    </Router>
+  );
+}
